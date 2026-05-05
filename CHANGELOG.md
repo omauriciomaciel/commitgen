@@ -2,6 +2,14 @@
 
 <!-- version list -->
 
+## v1.2.0 (2026-05-05)
+
+### Features
+
+- **config**: Add persistent configuration management
+  ([`a09bf2a`](https://github.com/igorrochap/commitgen/commit/a09bf2a2c98d29dbe01601f4dec0474004d0709d))
+
+
 ## v1.1.0 (2026-04-29)
 
 ### Chores
