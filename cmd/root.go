@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"os"
 
+	appconfig "github.com/igorrochap/commitgen/internal/config"
 	"github.com/igorrochap/commitgen/internal/generator"
 
 	"github.com/spf13/cobra"
@@ -17,17 +18,20 @@ var (
 	model    string
 )
 
+var configPath = appconfig.Path
+
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
-	Use:   "commitgen",
-	Short: "Generate commits based on changes made in the project",
-	Long:  `Commit generator helps you to generate commits using the conventional commit pattern. It uses an LLM to generate the commit for you to review`,
-	Run: func(cmd *cobra.Command, args []string) {
-		opts := generator.Options{Language: language, Model: model}
-		err := generator.Run(opts)
+	Use:          "commitgen",
+	Short:        "Generate commits based on changes made in the project",
+	Long:         `Commit generator helps you to generate commits using the conventional commit pattern. It uses an LLM to generate the commit for you to review`,
+	SilenceUsage: true,
+	RunE: func(cmd *cobra.Command, args []string) error {
+		opts, err := effectiveOptions(cmd)
 		if err != nil {
-			fmt.Printf("error: %v\n", err)
+			return err
 		}
+		return generator.Run(opts)
 	},
 }
 
@@ -41,6 +45,27 @@ func Execute() {
 }
 
 func init() {
-	rootCmd.Flags().StringVar(&language, "language", "en", "Commit language")
-	rootCmd.Flags().StringVar(&model, "model", "gemini-3-flash-preview", "Ollama model")
+	rootCmd.Flags().StringVar(&language, "language", appconfig.DefaultLanguage, "Commit language")
+	rootCmd.Flags().StringVar(&model, "model", appconfig.DefaultModel, "Ollama model")
+}
+
+func effectiveOptions(cmd *cobra.Command) (generator.Options, error) {
+	path, err := configPath()
+	if err != nil {
+		return generator.Options{}, err
+	}
+
+	cfg, err := appconfig.LoadFile(path)
+	if err != nil {
+		return generator.Options{}, err
+	}
+
+	if cmd.Flags().Changed("language") {
+		cfg.Language = language
+	}
+	if cmd.Flags().Changed("model") {
+		cfg.Model = model
+	}
+
+	return generator.Options{Language: cfg.Language, Model: cfg.Model}, nil
 }

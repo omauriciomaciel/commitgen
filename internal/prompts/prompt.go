@@ -17,3 +17,8 @@ func Get(lang string) (string, bool) {
 	p, ok := registry[lang]
 	return p, ok
 }
+
+func IsSupported(lang string) bool {
+	_, ok := registry[lang]
+	return ok
+}

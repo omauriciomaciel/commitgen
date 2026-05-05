@@ -4,7 +4,7 @@ A CLI tool that uses a local LLM via [Ollama](https://ollama.com) to generate [C
 
 ## How it works
 
-1. Detects your staged changes (or stages all changes if nothing is staged yet)
+1. Detects your staged changes
 2. Sends the diff to an Ollama model with a prompt that enforces the Conventional Commits format
 3. Presents the generated message for you to **accept**, **edit**, or **regenerate**
 
@@ -52,14 +52,36 @@ Inside any git repository, run:
 commitgen [flags]
 ```
 
-If there are no staged changes, all current changes are staged automatically before generating the commit.
+Stage the files you want to commit before running `commitgen`.
 
 ### Flags
 
 | Flag         | Default        | Description                              |
 |--------------|----------------|------------------------------------------|
 | `--language` | `en`           | Language for the commit message          |
-| `--model`    | `gemma4:31b-cloud`  | Ollama model to use for generation       |
+| `--model`    | `gemini-3-flash-preview`  | Ollama model to use for generation       |
+
+### Persistent defaults
+
+Save your preferred language or model once with:
+
+```bash
+commitgen config set --language pt-BR
+commitgen config set --model llama3.2
+commitgen config set --language pt-BR --model llama3.2
+```
+
+Show the current defaults with:
+
+```bash
+commitgen config show
+```
+
+Saved defaults apply to future `commitgen` runs. One-off flags still take precedence:
+
+```bash
+commitgen --language en
+```
 
 ### Supported languages
 
