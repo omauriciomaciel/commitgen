@@ -2,6 +2,14 @@
 
 <!-- version list -->
 
+## v1.3.0 (2026-05-05)
+
+### Features
+
+- **core**: Add automatic update notifications
+  ([`bf8e6c7`](https://github.com/igorrochap/commitgen/commit/bf8e6c7f774714eb3158f50f686dd16f2eeec968))
+
+
 ## v1.2.0 (2026-05-05)
 
 ### Features
