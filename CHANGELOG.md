@@ -2,6 +2,19 @@
 
 <!-- version list -->
 
+## v1.4.0 (2026-05-05)
+
+### Chores
+
+- **config**: Update default model to gemma4:31b-cloud
+  ([`c97a665`](https://github.com/igorrochap/commitgen/commit/c97a6655a4771c0e3b6d817d31143d26a2a45adc))
+
+### Features
+
+- **cli**: Add version command and flag
+  ([`d3f0ee6`](https://github.com/igorrochap/commitgen/commit/d3f0ee63be6ebe015c44cffb1116165dde76fab6))
+
+
 ## v1.3.0 (2026-05-05)
 
 ### Features
