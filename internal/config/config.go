@@ -10,7 +10,7 @@ import (
 
 const (
 	DefaultLanguage = "en"
-	DefaultModel    = "gemini-3-flash-preview"
+	DefaultModel    = "gemma4:31b-cloud"
 )
 
 type Config struct {
