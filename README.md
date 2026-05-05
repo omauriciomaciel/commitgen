@@ -40,6 +40,8 @@ Once installed, you can upgrade to the latest version at any time with:
 commitgen update
 ```
 
+When a newer release is available, `commitgen` shows a short notice before running your command.
+
 Under the hood this runs `go install github.com/igorrochap/commitgen@latest`, so the `go` toolchain must be on your `$PATH`.
 
 If you originally installed via `./install.sh` (to `/usr/local/bin`), the fresh binary lands in `$(go env GOPATH)/bin`. `commitgen update` will tell you the exact command to copy it over the system binary.

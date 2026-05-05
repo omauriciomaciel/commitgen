@@ -6,9 +6,11 @@ package cmd
 import (
 	"fmt"
 	"os"
+	"time"
 
 	appconfig "github.com/igorrochap/commitgen/internal/config"
 	"github.com/igorrochap/commitgen/internal/generator"
+	"github.com/igorrochap/commitgen/internal/updatecheck"
 
 	"github.com/spf13/cobra"
 )
@@ -26,6 +28,9 @@ var rootCmd = &cobra.Command{
 	Short:        "Generate commits based on changes made in the project",
 	Long:         `Commit generator helps you to generate commits using the conventional commit pattern. It uses an LLM to generate the commit for you to review`,
 	SilenceUsage: true,
+	PersistentPreRun: func(cmd *cobra.Command, args []string) {
+		notifyUpdate(cmd)
+	},
 	RunE: func(cmd *cobra.Command, args []string) error {
 		opts, err := effectiveOptions(cmd)
 		if err != nil {
@@ -68,4 +73,13 @@ func effectiveOptions(cmd *cobra.Command) (generator.Options, error) {
 	}
 
 	return generator.Options{Language: cfg.Language, Model: cfg.Model}, nil
+}
+
+func notifyUpdate(cmd *cobra.Command) {
+	result, err := updatecheck.CheckWithTimeout(750 * time.Millisecond)
+	if err != nil || !result.Newer {
+		return
+	}
+
+	fmt.Fprintf(cmd.ErrOrStderr(), "A new commitgen version is available: %s -> %s\nRun `commitgen update` to upgrade.\n\n", result.Current, result.Latest)
 }
