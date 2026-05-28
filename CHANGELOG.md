@@ -2,6 +2,15 @@
 
 <!-- version list -->
 
+## v1.5.0 (2026-05-28)
+
+### Features
+
+- **pr**: Add command to generate Pull Request descriptions
+  ([#5](https://github.com/igorrochap/commitgen/pull/5),
+  [`8e982b0`](https://github.com/igorrochap/commitgen/commit/8e982b02a236cb20d5d60bb7ee670acce9ac6f22))
+
+
 ## v1.4.0 (2026-05-05)
 
 ### Chores
