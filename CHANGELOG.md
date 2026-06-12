@@ -2,6 +2,14 @@
 
 <!-- version list -->
 
+## v1.6.0 (2026-06-12)
+
+### Features
+
+- **core**: Add context flag for generation ([#6](https://github.com/igorrochap/commitgen/pull/6),
+  [`d131f6b`](https://github.com/igorrochap/commitgen/commit/d131f6bce5b639e1c3fdfe785e7a0fd67ab5d906))
+
+
 ## v1.5.0 (2026-05-28)
 
 ### Features
